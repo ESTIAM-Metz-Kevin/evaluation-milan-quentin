@@ -1,0 +1,5 @@
+.quizz--answers .card:hover {
+  cursor: pointer;
+  background-color: oklch(var(--s));
+  color: oklch(var(--sc));
+}

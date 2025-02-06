@@ -7,11 +7,11 @@ import "./Game.css"; // Importation du fichier CSS
 
 // Définition du composant Game
 export default function Game() {
-  // suivre la question en cours
+  // Suivre la question en cours
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  // stocker le score du joueur
+  // Stocker le score du joueur
   const [score, setScore] = useState(0);
-  // savoir si la question a été répondue
+  // Savoir si la question a été répondue
   const [answered, setAnswered] = useState(false);
 
   // Liste des questions (à remplacer par un appel API)

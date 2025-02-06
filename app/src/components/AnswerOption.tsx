@@ -18,7 +18,7 @@ const AnswerOption = ({ text, isCorrect, onSelect, answered }: AnswerOptionProps
       <div
           className={`
               card bg-neutral text-neutral-content max-w-sm 
-              ${answered ? (isCorrect ? "bg-success" : "bg-error") : ""}
+              ${answered ? (isCorrect ? "bg-success" : "bg-red-400") : ""}
           `} // Gère la couleur si la réponse est correcte ou incorrecte
           onClick={handleClick} // Gère le clic sur la réponse
       >

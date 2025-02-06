@@ -1,50 +1,36 @@
 interface GameHistoryProps {
-  // Données de l'historique récupérées depuis l'API
-  history?: { 
-      pseudo: string; // Nom du joueur
-      score: string;  // Score obtenu
-      date: string;   // Date de la partie
-  }[];
+  history?: { pseudo: string; score: string; date: string }[]; // Définition du type des données de l'historique
 }
 
-// Définition du composant GameHistory
-function GameHistory({ history = [] }: GameHistoryProps) {
+function GameHistory({ history = [] }: GameHistoryProps) { // Si aucun historique n'est passé, un tableau vide est utilisé
   return (
-      <div className="overflow-x-auto mb-14">
-          {/* Tableau affichant l'historique des parties */}
-          <table className="table">
-              {/* En-tête du tableau */}
-              <thead>
-                  <tr>
-                      <th>Joueur</th>
-                      <th>Score</th>
-                      <th>Date</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  {/* Vérifie si l'historique est vide */}
-                  {history.length === 0 ? (
-                      // Affiche un message si aucun historique n'est disponible
-                      <tr>
-                          <td colSpan={3} className="text-center">
-                              Aucun historique
-                          </td>
-                      </tr>
-                  ) : (
-                      // Génère dynamiquement les lignes du tableau à partir de l'historique
-                      history.map((entry, index) => (
-                          <tr key={index}>
-                              <td>{entry.pseudo}</td>
-                              <td>{entry.score}</td>
-                              <td>{entry.date}</td>
-                          </tr>
-                      ))
-                  )}
-              </tbody>
-          </table>
-      </div>
+    <div className="overflow-x-auto mb-14"> {/* Conteneur avec défilement horizontal pour la table */}
+      <table className="table"> {/* Table pour afficher l'historique des parties */}
+        <thead>
+          <tr>
+            <th>Joueur</th> {/* Titre de la colonne pour le pseudo du joueur */}
+            <th>Score</th>  {/* Titre de la colonne pour le score */}
+            <th>Date</th>   {/* Titre de la colonne pour la date de la partie */}
+          </tr>
+        </thead>
+        <tbody>
+          {history.length === 0 ? (
+            <tr>
+              <td colSpan={3} className="text-center">Aucun historique</td> {/* Affichage d'un message indiquant qu'il n'y a pas de parties passées */}
+            </tr>
+          ) : (
+            history.map((entry, index) => (
+              <tr key={index}> {/* Chaque ligne doit avoir une clé unique */}
+                <td>{entry.pseudo}</td> {/* Affichage du pseudo du joueur */}
+                <td>{entry.score}</td>  {/* Affichage du score */}
+                <td>{entry.date}</td>   {/* Affichage de la date de la partie */}
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
-// Exportation du composant pour qu'il puisse être utilisé ailleurs dans l'application
-export default GameHistory;
+export default GameHistory;  // Exportation du composant pour pouvoir l'utiliser dans d'autres fichiers

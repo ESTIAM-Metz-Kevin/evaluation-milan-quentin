@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router";
-import { NavLink, useNavigate } from "react-router";
+import { NavLink } from "react-router";
 import QuestionCard from "../components/QuestionCard";
 import AnswerOption from "../components/AnswerOption";
 import ScoreDisplay from "../components/ScoreDisplay";
@@ -24,9 +24,6 @@ export default function Game() {
   
   // Pseudo du joueur
   const [pseudo, setPseudo] = useState(state?.pseudo || ""); // Récupérez le pseudo ou une valeur par défaut si non défini
-  
-  // Utilisation du hook useNavigate pour naviguer entre les pages
-  const navigate = useNavigate();
   
   // Liste des questions (à remplacer par un appel API)
   const questions = [
@@ -74,14 +71,21 @@ export default function Game() {
   const currentQuestion = questions[currentQuestionIndex];
 
   // Sauvegarder l'historique localement à chaque fin de quiz
- useEffect(() => {
-  if (currentQuestionIndex === questions.length - 1 && answered) {
-    const date = new Date().toLocaleString(); // Récupère la date actuelle
-    const newHistory = [...history, { pseudo, score, date }]; // Ajoute l'entrée dans l'historique
-    setHistory(newHistory);
-    localStorage.setItem("gameHistory", JSON.stringify(newHistory)); // Sauvegarde dans le localStorage
-  }
-}, [answered, currentQuestionIndex, pseudo]); // Inclure `pseudo` dans les dépendances pour s'assurer qu'il est mis à jour correctement
+  useEffect(() => {
+    if (currentQuestionIndex === questions.length - 1 && answered) {
+      const date = new Date().toLocaleString();
+      const newEntry = { pseudo, score, date };
+      
+      // Récupérer l'historique existant
+      const storedHistory = JSON.parse(localStorage.getItem("gameHistory") || "[]");
+      
+      // Ajouter la nouvelle entrée au début de l'historique et le limiter à 5 entrées
+      const updatedHistory = [newEntry, ...storedHistory].slice(0, 5);
+      
+      // Sauvegarder l'historique mis à jour dans le localStorage
+      localStorage.setItem("gameHistory", JSON.stringify(updatedHistory));
+    }
+  }, [answered, currentQuestionIndex, pseudo, score]);
 
   return (
     <>

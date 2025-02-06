@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import GameHistory from "../components/GameHistory"; // Assurez-vous que ce composant est correctement importé
+import GameHistory from "../components/GameHistory";
 import PlayForm from "../components/PlayForm";
 import { useNavigate } from "react-router";
 
@@ -11,9 +11,9 @@ function Home() {
   useEffect(() => {
     const storedHistory = JSON.parse(localStorage.getItem("gameHistory") || "[]");
     // Limiter l'historique aux 5 dernières parties
-    const latestHistory = storedHistory.slice(-5);
+    const latestHistory = storedHistory.slice(0, 5); // Modifier ici pour garder les 5 premières
     setHistory(latestHistory);
-  }, []);
+  }, []); // Se déclenche au premier rendu seulement
 
   return (
     <div>

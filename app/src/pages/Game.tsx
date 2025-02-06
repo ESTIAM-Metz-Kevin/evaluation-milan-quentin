@@ -18,9 +18,6 @@ export default function Game() {
   
   // Suivi de l'état de réponse (si la question a été répondue)
   const [answered, setAnswered] = useState(false);
-
-  // Historique des parties
-  const [history, setHistory] = useState<{ pseudo: string; score: number; date: string }[]>([]);
   
   // Pseudo du joueur
   const [pseudo, setPseudo] = useState(state?.pseudo || ""); // Récupérez le pseudo ou une valeur par défaut si non défini
